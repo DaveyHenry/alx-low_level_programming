@@ -4,55 +4,47 @@
  * infinite_add - adds two numbers
  * @n1: first number
  * @n2: second number
- * @r: buffer for result
+ * @r: buffer to store result
  * @size_r: buffer size
  *
- * Return: address of r or 0
+ * Return: pointer to result, or 0 if result cannot be stored in buffer
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int i, j, k, l, m, n;
+	int len1 = 0, len2 = 0, i, j, k = 0, sum, carry = 0;
 
-	/* Find lengths of n1 and n2 */
-	for (i = 0; n1[i]; i++)
-		;
-	for (j = 0; n2[j]; j++)
-		;
-
-	/* Check if the sum can fit in r */
-	if (i > size_r - 1 || j > size_r - 1)
+	while (n1[len1] != '\0')
+		len1++;
+	while (n2[len2] != '\0')
+		len2++;
+	if (len1 + 2 > size_r || len2 + 2 > size_r)
 		return (0);
-
-	/* Initialize variables */
-	m = 0;
-	k = 0;
-	i--;
-	j--;
-
-	/* Calculate the sum of the numbers */
-	while (i >= 0 || j >= 0 || m)
+	i = len1 - 1;
+	j = len2 - 1;
+	while (i >= 0 || j >= 0)
 	{
-		n = m;
+		sum = carry;
 		if (i >= 0)
-			n += n1[i--] - '0';
+			sum += n1[i] - '0';
 		if (j >= 0)
-			n += n2[j--] - '0';
-
-		r[k++] = (n % 10) + '0';
-		m = n / 10;
+			sum += n2[j] - '0';
+		if (k + 1 > size_r)
+			return (0);
+		r[k++] = sum % 10 + '0';
+		carry = sum / 10;
+		i--;
+		j--;
 	}
-
-	/* If r is full but there is still a carry, return 0 */
-	if (k == size_r && m)
+	if (carry && k + 1 <= size_r)
+		r[k++] = carry + '0';
+	if (k + 1 > size_r)
 		return (0);
-
-	/* Reverse r */
-	for (l = 0, k--; l < k; k--, l++)
+	r[k] = '\0';
+	for (i = 0, j = k - 1; i < j; i++, j--)
 	{
-		m = r[k];
-		r[k] = r[l];
-		r[l] = m;
+		char tmp = r[i];
+		r[i] = r[j];
+		r[j] = tmp;
 	}
-
 	return (r);
 }
