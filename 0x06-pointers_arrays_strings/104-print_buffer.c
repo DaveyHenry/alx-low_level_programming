@@ -3,58 +3,47 @@
 
 /**
  * print_buffer - prints the content of a buffer
- * @b: pointer to the buffer to print
- * @size: size of the buffer
+ * @b: the buffer to print
+ * @size: the size of the buffer
+ *
+ * Return: void
  */
 void print_buffer(char *b, int size)
 {
-    int i, j;
-    unsigned char c;
+	int i, j;
 
-    if (size <= 0)
-    {
-        printf("\n");
-        return;
-    }
+	if (size <= 0)
+	{
+		printf("\n");
+		return;
+	}
 
-    for (i = 0; i < size; i += 10)
-    {
-        printf("%08x: ", i);
+	for (i = 0; i < size; i += 10)
+	{
+		printf("%08x: ", i);
 
-        for (j = i; j < i + 10; j++)
-        {
-            if (j < size)
-            {
-                printf("%02x", b[j]);
-            }
-            else
-            {
-                printf("  ");
-            }
+		for (j = i; j < i + 10; j++)
+		{
+			if (j < size)
+				printf("%02x", b[j]);
+			else
+				printf("  ");
 
-            if (j % 2)
-            {
-                printf(" ");
-            }
-        }
+			if (j % 2 != 0)
+				printf(" ");
+		}
 
-        for (j = i; j < i + 10; j++)
-        {
-            if (j >= size)
-            {
-                printf(" ");
-            }
-            else
-            {
-                c = b[j];
-                if (c < 32 || c > 126)
-                {
-                    c = '.';
-                }
-                printf("%c", c);
-            }
-        }
+		for (j = i; j < i + 10; j++)
+		{
+			if (j >= size)
+				break;
 
-        printf("\n");
-    }
+			if (b[j] >= ' ' && b[j] <= '~')
+				printf("%c", b[j]);
+			else
+				printf(".");
+		}
+
+		printf("\n");
+	}
 }
