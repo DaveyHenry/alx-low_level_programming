@@ -1,56 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /**
- * is_number - check if a string is a number
- * @s: string to check
+ * main - Entry point
+ * @argc: Argument count
+ * @argv: Array of pointers to arguments
  *
- * Return: 1 if string is a number, 0 otherwise
- */
-int is_number(char *s)
-{
-    int i = 0;
-
-    if (s[i] == '-')
-        i++;
-
-    for (; s[i] != '\0'; i++)
-    {
-        if (s[i] < '0' || s[i] > '9')
-            return (0);
-    }
-
-    return (1);
-}
-
-/**
- * main - entry point
- * @argc: number of arguments
- * @argv: array of argument strings
- *
- * Return: 0 if successful, 1 if error
+ * Return: 0 on success, 1 on error
  */
 int main(int argc, char *argv[])
 {
-    int i, sum = 0;
+	int i, sum = 0;
 
-    if (argc < 2)
-    {
-        printf("0\n");
-        return (0);
-    }
+	if (argc < 2)
+	{
+		printf("0\n");
+		return (0);
+	}
 
-    for (i = 1; i < argc; i++)
-    {
-        if (!is_number(argv[i]))
-        {
-            printf("Error\n");
-            return (1);
-        }
+	for (i = 1; i < argc; i++)
+	{
+		int j;
 
-        sum += atoi(argv[i]);
-    }
+		for (j = 0; argv[i][j] != '\0'; j++)
+		{
+			if (!isdigit(argv[i][j]))
+			{
+				printf("Error\n");
+				return (1);
+			}
+		}
 
-    printf("%d\n", sum);
-    return (0);
+		sum += atoi(argv[i]);
+	}
+
+	printf("%d\n", sum);
+
+	return (0);
 }
