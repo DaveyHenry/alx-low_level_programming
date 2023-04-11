@@ -2,27 +2,26 @@
 #include <stdlib.h>
 
 /**
- * create_array - Creates an array of chars
- * @size: The size of the array
- * @c: The character to initialize the array with
+ * create_array - creates an array of chars, and initializes it with a specific char
+ * @size: size of the array to create
+ * @c: character to initialize the array with
  *
- * Return: If size == 0 or memory allocation fails - NULL.
- * Otherwise - a pointer to the array.
+ * Return: If successful - a pointer to the array. Otherwise - NULL
  */
 char *create_array(unsigned int size, char c)
 {
-	char *array;
+	char *arr;
+	unsigned int i;
 
 	if (size == 0)
 		return (NULL);
 
-	array = malloc(size * sizeof(char));
-
-	if (array == NULL)
+	arr = malloc(size * sizeof(char));
+	if (arr == NULL)
 		return (NULL);
 
-	for (unsigned int i = 0; i < size; i++)
-		array[i] = c;
+	for (i = 0; i < size; i++)
+		arr[i] = c;
 
-	return (array);
+	return (arr);
 }
