@@ -1,16 +1,15 @@
 #include "main.h"
-
 /**
- * argstostr - concatenates all arguments of the program
- * @ac: argument count
- * @av: argument vector
- *
- * Return: pointer to new string containing concatenated args
+ * argstostr - prints args
+ * @ac: takes in width of grid
+ * @av: height of grid
+ * Return: the args one line at a time
  */
+
 char *argstostr(int ac, char **av)
 {
 	char *str;
-	int count = 0, a, b, c = 0;
+	int count = 0, a = 0, b = 0, c = 0;
 
 	if (ac == 0 || av == NULL)
 		return (NULL);
