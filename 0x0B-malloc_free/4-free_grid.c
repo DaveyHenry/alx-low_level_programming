@@ -1,12 +1,13 @@
 #include "main.h"
 
 /**
- * free_grid - frees a 2D grid previously created by alloc_grid
- * @grid: the grid to be freed
- * @height: the height of the grid
+ * free_grid - allocates a grid, make space and free space
+ * @grid: takes in width of grid
+ * @height: height of grid
  *
- * Return: void
+ * Return: free grid
  */
+
 void free_grid(int **grid, int height)
 {
     int i;
