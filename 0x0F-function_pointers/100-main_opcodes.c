@@ -2,38 +2,38 @@
 #include <stdlib.h>
 
 /**
- * main - Prints the opcodes of its own main function.
+ * main - entry point
+ * @argc: argument count
+ * @argv: argument vector
  *
- * @argc: The number of arguments passed to the program.
- * @argv: An array of pointers to the arguments.
- *
- * Return: 0 on success, 1 if the number of arguments is incorrect,
- *         2 if the number of bytes is negative.
+ * Return: 0 on success, 1 if incorrect number of arguments, 2 if negative bytes
  */
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-    unsigned char *main_func_ptr = (unsigned char *)main;
-    int num_bytes, i;
+	char *opc = (char *) main;
+	int i, nbytes;
 
-    if (argc != 2)
-    {
-        printf("Error\n");
-        return 1;
-    }
+	if (argc != 2)
+	{
+		fprintf(stderr, "Error: incorrect number of arguments\n");
+		return (1);
+	}
 
-    num_bytes = atoi(argv[1]);
-    if (num_bytes < 0)
-    {
-        printf("Error\n");
-        return 2;
-    }
+	nbytes = atoi(argv[1]);
 
-    for (i = 0; i < num_bytes - 1; i++)
-    {
-        printf("%02x ", main_func_ptr[i]);
-    }
+	if (nbytes < 0)
+	{
+		fprintf(stderr, "Error: negative number of bytes\n");
+		return (2);
+	}
 
-    printf("%02x\n", main_func_ptr[i]);
+	for (i = 0; i < nbytes; i++)
+	{
+		printf("%02x", opc[i] & 0xFF);
+		if (i != nbytes - 1)
+			printf(" ");
+	}
 
-    return 0;
+	printf("\n");
+	return (0);
 }
