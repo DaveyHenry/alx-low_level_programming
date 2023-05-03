@@ -1,23 +1,26 @@
 #include "lists.h"
 
 /**
- * pop_listint - deletes the head node of a linked list.
- * @head: pointer to the first node of the linked list
- * Return: the data inside the element that was deleted 
- * or 0 if the list is empty
+ * pop_listint - a function that deletes the head node of a listint_t
+ * linked list
+ * @head: the pointer to the head of the node
+ *
+ * Return: the head node's data (n) and 0 if empty
  */
+
 int pop_listint(listint_t **head)
 {
-	listint_t *temp;
-	int head_data;
+	int node_data = 0;
+	listint_t *temp_node;
 
-	if (!head || !*head)
-		return (0);
+	if (*head)
+	{
+		temp_node = (*head)->next;
+		node_data = (*head)->n;
+		free(*head);
+	}
 
-	head_data = (*head)->n;
-	temp = *head;
-	*head = (*head)->next;
-	free(temp);
+	*head = temp_node;
 
-	return (head_data);
+	return (node_data);
 }
