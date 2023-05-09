@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- * error_file - checks if files can be opened.
+ * error_file - check if files can be opened and exit if not.
+ *
  * @file_from: file descriptor of the source file.
  * @file_to: file descriptor of the destination file.
  * @argv: arguments vector.
@@ -23,11 +24,12 @@ void error_file(int file_from, int file_to, char *argv[])
 }
 
 /**
- * main - copies the content of a file to another file.
+ * main - copy the content of a file to another file.
+ *
  * @argc: number of arguments.
  * @argv: arguments vector.
  *
- * Return: 0 on success, otherwise exit status.
+ * Return: 0 on success, or the appropriate exit status on failure.
  */
 int main(int argc, char *argv[])
 {
@@ -65,5 +67,6 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_to);
 		exit(100);
 	}
+
 	return (0);
 }
