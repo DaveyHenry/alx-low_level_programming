@@ -1,12 +1,9 @@
 #include "main.h"
-
 /**
- * error_file - check if files can be opened and exit if not.
- *
- * @file_from: file descriptor of the source file.
- * @file_to: file descriptor of the destination file.
+ * error_file - checks if files can be opened.
+ * @file_from: file_from.
+ * @file_to: file_to.
  * @argv: arguments vector.
- *
  * Return: no return.
  */
 void error_file(int file_from, int file_to, char *argv[])
@@ -24,12 +21,10 @@ void error_file(int file_from, int file_to, char *argv[])
 }
 
 /**
- * main - copy the content of a file to another file.
- *
+ * main - check the code for Holberton School students.
  * @argc: number of arguments.
  * @argv: arguments vector.
- *
- * Return: 0 on success, or the appropriate exit status on failure.
+ * Return: Always 0.
  */
 int main(int argc, char *argv[])
 {
@@ -39,18 +34,22 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
 		exit(97);
 	}
 
 	file_from = open(argv[1], O_RDONLY);
-	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
 	error_file(file_from, file_to, argv);
 
-	while ((nchars = read(file_from, buf, 1024)) > 0)
+	nchars = 1024;
+	while (nchars == 1024)
 	{
+		nchars = read(file_from, buf, 1024);
+		if (nchars == -1)
+			error_file(-1, 0, argv);
 		nwr = write(file_to, buf, nchars);
-		if (nwr == -1 || nwr != nchars)
+		if (nwr == -1)
 			error_file(0, -1, argv);
 	}
 
@@ -64,9 +63,8 @@ int main(int argc, char *argv[])
 	err_close = close(file_to);
 	if (err_close == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_to);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", file_from);
 		exit(100);
 	}
-
 	return (0);
 }
